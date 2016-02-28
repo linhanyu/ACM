@@ -12,14 +12,90 @@ class Splay_Tree
 {
 public:
 	Splay_Tree();
+
+	void insert(T val);
+
+	Splay_Tree_Node<T> * Splay(T val, Splay_Tree_Node<T> * pos);
+
 	~Splay_Tree();
+
 
 private:
 	Splay_Tree_Node<T> * null_node;
 	Splay_Tree_Node<T> * tree;
 
-	Splay_Tree_Node<T> * Splay(T val, Splay_Tree_Node<T> * pos);
+	Splay_Tree_Node<T> * Insert(T val, Splay_Tree_Node<T> * pos);
+
+	void destory(Splay_Tree_Node<T> * tree);
 };
+
+template <class T>
+void Splay_Tree<T>::insert(T val)
+{
+	tree = Insert(val, tree);
+}
+
+template <class T>
+Splay_Tree_Node<T> * Splay_Tree<T>::Insert(T val, Splay_Tree_Node<T> * pos)
+{
+	static Splay_Tree_Node<T> * new_node=NULL;
+
+	if (new_node==NULL)
+	{
+		new_node = new Splay_Tree_Node<T>;
+	}
+	new_node->val = val;
+
+	if (pos == null_node)
+	{
+		new_node->left = new_node->right = null_node£»
+		pos = new_node;
+	}
+	else
+	{
+		pos = Splay(val, pos);
+		if (val < pos->val)
+		{
+			new_node->left = pos->left;
+			new_node->right = pos;
+			pos->left = null_node;
+			pos = new_node;
+		}
+		else if (val > pos->val)
+		{
+			new_node->left = pos;
+			new_node->right = pos->right;
+			pos->right = null_node;
+			pos = new_node;
+		}
+		else
+		{
+			return pos;
+		}
+	}
+
+	new_node = NULL;
+	return pos;
+}
+
+template <class T>
+void Splay_Tree<T>::destory(Splay_Tree_Node<T> * tree)
+{
+	if (tree == null_node)
+	{
+		break;
+	}
+	destory(tree->left);
+	destory(tree->right)£»
+		delete tree;
+}
+
+template <class T>
+Splay_Tree<T>::~Splay_Tree()
+{
+	destory(tree);
+	delete null_node;
+}
 
 template <class T>
 Splay_Tree_Node<T> * Splay_Tree<T>::Splay(T val, Splay_Tree_Node<T> * pos)
@@ -64,6 +140,13 @@ Splay_Tree_Node<T> * Splay_Tree<T>::Splay(T val, Splay_Tree_Node<T> * pos)
 			left = pos;
 			pos = pos->right;
 		}
+
+		left_tree_max->left = pos->left;
+		right_tree_min->right = pos->right;
+		pos->left = Header.left;
+		pos->right = Header.right;
+
+		return pos;
 	}
 }
 
@@ -71,5 +154,6 @@ template <class T>
 Splay_Tree<T>::Splay_Tree()
 {
 	null_node = new Splay_Tree_Node<T>;
-	null_node->left = null_node->right = null_node;
+	tree = null_node->left = null_node->right = null_node;
+	
 }

@@ -50,6 +50,20 @@ Splay_Tree_Node<T> * Splay_Tree<T>::Splay(T val, Splay_Tree_Node<T> * pos)
 			right_tree_min = pos;
 			pos = pos->left;
 		}
+		else {
+			if (val > pos->right->val)
+			{
+				pos = single_rotation_right(pos);
+			}
+
+			if (pos->right == null_node)
+			{
+				break;
+			}
+			left_tree_min->right = pos;
+			left = pos;
+			pos = pos->right;
+		}
 	}
 }
 

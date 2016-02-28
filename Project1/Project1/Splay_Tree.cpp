@@ -24,6 +24,7 @@ private:
 template<template T>
 Splay_Tree<T>::Splay_Tree()
 {
+	int b;
 	null_node = new Splay_Tree_Node;
 	null_node->left = null_node->right = null_node;
 }

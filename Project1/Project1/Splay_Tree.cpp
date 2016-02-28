@@ -174,7 +174,7 @@ Splay_Tree_Node<T> * Splay_Tree<T>::Splay(T val, Splay_Tree_Node<T> * pos)
 		{
 			if (val < pos->left->val)
 			{
-				// 				pos = single_rotation_left(pos);
+				pos = single_rotation_left(pos);
 			}
 
 			if (pos->left == null_node)
@@ -218,4 +218,14 @@ Splay_Tree<T>::Splay_Tree()
 	tree = null_node->left = null_node->right = null_node;
 	
 }
-
+// int main() {
+// 	Splay_Tree<int> ST;
+// 	for (int i = 0; i < 1024;i++)
+// 	{
+// 		ST.insert(i);
+// 	}
+// 
+// 	ST.Delete(10);
+// 	getchar();
+// 
+// }

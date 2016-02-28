@@ -59,7 +59,6 @@ Red_Black_Tree<T>::Red_Black_Tree()
 template<class T>
 Red_Black_Tree<T>::~Red_Black_Tree()
 {
-	int a;
 }
 
 template<class T>

@@ -1,3 +1,6 @@
+
+#include <cstdio>
+
 template<class T>
 class Splay_Tree_Node
 {
@@ -10,24 +13,54 @@ public:
 template <class T>
 class Splay_Tree
 {
-public:
-	Splay_Tree();
-
-	void insert(T val);
-
-	Splay_Tree_Node<T> * Splay(T val, Splay_Tree_Node<T> * pos);
-
-	~Splay_Tree();
-
-
 private:
 	Splay_Tree_Node<T> * null_node;
 	Splay_Tree_Node<T> * tree;
 
 	Splay_Tree_Node<T> * Insert(T val, Splay_Tree_Node<T> * pos);
+	Splay_Tree_Node<T> * Remove(T val, Splay_Tree_Node<T> * pos);
+	Splay_Tree_Node<T> * single_rotation_right(Splay_Tree_Node<T> * pos);
+	Splay_Tree_Node<T> * single_rotation_left(Splay_Tree_Node<T> * pos);
 
 	void destory(Splay_Tree_Node<T> * tree);
+
+public:
+	Splay_Tree();
+
+	void insert(T val);
+	void Delete(T val);
+
+
+	Splay_Tree_Node<T> * Splay(T val, Splay_Tree_Node<T> * pos);
+	~Splay_Tree();
+
+
+
 };
+
+template <class T>
+Splay_Tree_Node<T> * Splay_Tree<T>::single_rotation_left(Splay_Tree_Node<T> * pos)
+{
+	Splay_Tree_Node<T> * tmp = pos->left;
+	pos->left = tmp->right;
+	tmp->right = pos;
+	return tmp;
+}
+
+template <class T>
+Splay_Tree_Node<T> * Splay_Tree<T>::single_rotation_right(Splay_Tree_Node<T> * pos)
+{
+	Splay_Tree_Node<T> * tmp = pos->right;
+	pos->right = tmp->left;
+	tmp->left = pos;
+	return tmp;
+}
+
+template <class T>
+void Splay_Tree<T>::Delete(T val)
+{
+	tree = Remove(val, tree);
+}
 
 template <class T>
 void Splay_Tree<T>::insert(T val)
@@ -38,9 +71,9 @@ void Splay_Tree<T>::insert(T val)
 template <class T>
 Splay_Tree_Node<T> * Splay_Tree<T>::Insert(T val, Splay_Tree_Node<T> * pos)
 {
-	static Splay_Tree_Node<T> * new_node=NULL;
+	static Splay_Tree_Node<T> * new_node=nullptr;
 
-	if (new_node==NULL)
+	if (new_node==nullptr)
 	{
 		new_node = new Splay_Tree_Node<T>;
 	}
@@ -48,7 +81,7 @@ Splay_Tree_Node<T> * Splay_Tree<T>::Insert(T val, Splay_Tree_Node<T> * pos)
 
 	if (pos == null_node)
 	{
-		new_node->left = new_node->right = null_node£»
+		new_node->left = new_node->right = null_node;
 		pos = new_node;
 	}
 	else
@@ -74,8 +107,35 @@ Splay_Tree_Node<T> * Splay_Tree<T>::Insert(T val, Splay_Tree_Node<T> * pos)
 		}
 	}
 
-	new_node = NULL;
+	new_node = nullptr;
 	return pos;
+}
+
+template<class T>
+Splay_Tree_Node<T>* Splay_Tree<T>::Remove(T val, Splay_Tree_Node<T>* pos)
+{
+	Splay_Tree_Node<T> * new_tree;
+	if (pos != null_node)
+	{
+		pos = Splay(val,pos);
+		if (val == pos->val)
+		{
+			if (pos->left == null_node)
+			{
+				new_tree = pos->right;
+			}
+			else
+			{
+				new_tree = Splay(val, pos->left);
+				new_tree->right = pos->right;
+			}
+			delete pos;
+			pos = new_tree;
+		}
+
+	}
+	return pos;
+
 }
 
 template <class T>
@@ -83,11 +143,11 @@ void Splay_Tree<T>::destory(Splay_Tree_Node<T> * tree)
 {
 	if (tree == null_node)
 	{
-		break;
+		return;
 	}
 	destory(tree->left);
-	destory(tree->right)£»
-		delete tree;
+	destory(tree->right);
+	delete tree;
 }
 
 template <class T>
@@ -100,7 +160,7 @@ Splay_Tree<T>::~Splay_Tree()
 template <class T>
 Splay_Tree_Node<T> * Splay_Tree<T>::Splay(T val, Splay_Tree_Node<T> * pos)
 {
-	static Splay_Tree_NodeM<T> Header;
+	static Splay_Tree_Node<T> Header;
 	Splay_Tree_Node<T> * left_tree_max;
 	Splay_Tree_Node<T> * right_tree_min;
 
@@ -136,18 +196,19 @@ Splay_Tree_Node<T> * Splay_Tree<T>::Splay(T val, Splay_Tree_Node<T> * pos)
 			{
 				break;
 			}
-			left_tree_min->right = pos;
-			left = pos;
+			left_tree_max->right = pos;
+			left_tree_max = pos;
 			pos = pos->right;
 		}
 
-		left_tree_max->left = pos->left;
-		right_tree_min->right = pos->right;
-		pos->left = Header.left;
-		pos->right = Header.right;
-
-		return pos;
+		
 	}
+	left_tree_max->right = pos->left;
+	right_tree_min->left = pos->right;
+	pos->left = Header.right;
+	pos->right = Header.left;
+
+	return pos;
 }
 
 template <class T>
@@ -157,3 +218,4 @@ Splay_Tree<T>::Splay_Tree()
 	tree = null_node->left = null_node->right = null_node;
 	
 }
+

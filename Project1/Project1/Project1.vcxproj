@@ -115,6 +115,7 @@
     <ClCompile Include="Red_Black_Tree.cpp" />
     <ClCompile Include="Skip_List.cpp" />
     <ClCompile Include="Splay_Tree.cpp" />
+    <ClCompile Include="Treaps.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

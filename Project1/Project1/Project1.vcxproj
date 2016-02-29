@@ -112,6 +112,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Red_Black_Tree.cpp" />
+    <ClCompile Include="Skip_List.cpp" />
     <ClCompile Include="Splay_Tree.cpp" />
   </ItemGroup>
   <ItemGroup>

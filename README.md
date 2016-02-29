@@ -11,4 +11,6 @@ Skip_List
 
 AA_Tree
 
+Treap
+
 algorithm:

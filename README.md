@@ -13,4 +13,6 @@ AA_Tree
 
 Treap
 
+2_d_Tree
+
 algorithm:

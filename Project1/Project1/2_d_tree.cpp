@@ -8,7 +8,7 @@ public:
 	T * val;
 	two_d_tree_node<T> * left;
 	two_d_tree_node<T> * right;
-	~two_d_tree_node() { delete[] val };
+	~two_d_tree_node() { delete[] val; };
 };
 
 template <class T>
@@ -17,7 +17,7 @@ class two_d_tree
 public:
 	two_d_tree();
 	void Insert(T val1,T val2);
-	void Do_Reange(T low_1, T high_1, T low_2, T high_2, void(*func)(T val_1, T val_2));
+	void Do_Reange(T low_1, T high_1, T low_2, T high_2,void(*func)(T val_1, T val_2));
 	~two_d_tree() { destory(tree); };
 
 private:
@@ -52,12 +52,12 @@ two_d_tree_node<T> * two_d_tree<T>:: insert(T val[], two_d_tree_node<T> * tree, 
 	}
 	else if(val[level] < (tree->val)[level])
 	{
-		tree->left = two_d_tree_node<T> * insert(val, tree->left, !level);
+		tree->left = insert(val, tree->left, !level);
 
 	}
 	else
 	{
-		tree->right = two_d_tree_node<T> * insert(val, tree->right, !level);
+		tree->right = insert(val, tree->right, !level);
 
 	}
 
@@ -80,7 +80,7 @@ void two_d_tree<T>::do_range(T * low, T * hight, two_d_tree_node<T>* tree, int l
 
 		if (hight[level] >= tree->val[level])
 		{
-			do_range(low, hight, tree->left, !level, func);
+			do_range(low, hight, tree->right, !level, func);
 
 		}
 	}
@@ -107,7 +107,7 @@ two_d_tree<T>::two_d_tree():tree(nullptr)
 template<class T>
 void two_d_tree<T>::Insert(T val1, T val2)
 {
-	two_d_tree_node<T> * tmp = new two_d_tree_node<T>[2];
+	T * tmp = new T[2];
 	tmp[0] = val1;
 	tmp[1] = val2;
 	tree = insert(tmp, tree, 0);
@@ -116,9 +116,17 @@ void two_d_tree<T>::Insert(T val1, T val2)
 
 template <class T>
 void rec_print(T val_1, T val_2) {
-	printf("val_1:%d\tval_2:%d\n");
+	printf("val_1:%d\tval_2:%d\n",val_1,val_2);
 }
 
-int main() {
-	return 0;
-}
+// int main() {
+// 	two_d_tree<int> tdt;
+// 	for (int i = 0, j = 1; i < 10;i++,j<<=1)
+// 	{
+// 		tdt.Insert(i, j);
+// 	}
+// 	tdt.Do_Reange(2, 8, 1, 64, rec_print);
+// 	getchar();
+// 	return 0;
+// 
+// }

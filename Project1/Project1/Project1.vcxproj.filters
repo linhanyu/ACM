@@ -27,6 +27,12 @@
     <ClCompile Include="AA_tree.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Treaps.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="2_d_tree.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

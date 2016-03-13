@@ -80,74 +80,74 @@ void Q_Sort(int * a, int left, int right) {
 
 }
 
-int main() {
-	int n=60,m,sum;
-	int horse[2][NUM];
-
-	while (n--)
-	{
-		cin >> m;
-		if (m==0)
-		{
-			break;
-		}
-
-		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < m; j++) {
-				cin>>horse[i][j];
-			}
-		}
-
-		Q_Sort(horse[QI], 0, m - 1);
-		Q_Sort(horse[TIAN], 0, m - 1);
-		sum = 0;
-
-		int  s_q,s_t, f_q, f_t,win,lose;
-		win = lose = 0;
-		s_q = s_t = 0;
-		f_q = f_t = m-1;
-		for (int i=0;i<m;i++)
-		{
-			
-			 if (horse[TIAN][f_t] > horse[QI][f_q]){
-				f_t--;
-				f_q--;
-				win++;
-			}else if (horse[TIAN][f_t] < horse[QI][f_q])
-			{
-				s_t++;
-				f_q--;
-				lose++;
-			}else {
-
-				if (horse[TIAN][s_t] > horse[QI][s_q] )
-				{
-					win++;
-					s_t++;
-					s_q++;
-				} 
-				else if(horse[TIAN][s_t] < horse[QI][s_q])
-				{
-					s_t++;
-					f_q--;
-					lose++;
-				}
-				else 
-				{
-					if (horse[TIAN][s_t] < horse[QI][f_q]) {
-						lose++;
-					}
-					s_t++;
-					f_q--;
-				}
-				
-				
-				
-			}
-
-
-		}
-
-		cout << (win - lose) * 200<<endl;
-	}
-}
+// int main() {
+// 	int n=60,m,sum;
+// 	int horse[2][NUM];
+// 
+// 	while (n--)
+// 	{
+// 		cin >> m;
+// 		if (m==0)
+// 		{
+// 			break;
+// 		}
+// 
+// 		for (int i = 0; i < 2; i++) {
+// 			for (int j = 0; j < m; j++) {
+// 				cin>>horse[i][j];
+// 			}
+// 		}
+// 
+// 		Q_Sort(horse[QI], 0, m - 1);
+// 		Q_Sort(horse[TIAN], 0, m - 1);
+// 		sum = 0;
+// 
+// 		int  s_q,s_t, f_q, f_t,win,lose;
+// 		win = lose = 0;
+// 		s_q = s_t = 0;
+// 		f_q = f_t = m-1;
+// 		for (int i=0;i<m;i++)
+// 		{
+// 			
+// 			 if (horse[TIAN][f_t] > horse[QI][f_q]){
+// 				f_t--;
+// 				f_q--;
+// 				win++;
+// 			}else if (horse[TIAN][f_t] < horse[QI][f_q])
+// 			{
+// 				s_t++;
+// 				f_q--;
+// 				lose++;
+// 			}else {
+// 
+// 				if (horse[TIAN][s_t] > horse[QI][s_q] )
+// 				{
+// 					win++;
+// 					s_t++;
+// 					s_q++;
+// 				} 
+// 				else if(horse[TIAN][s_t] < horse[QI][s_q])
+// 				{
+// 					s_t++;
+// 					f_q--;
+// 					lose++;
+// 				}
+// 				else 
+// 				{
+// 					if (horse[TIAN][s_t] < horse[QI][f_q]) {
+// 						lose++;
+// 					}
+// 					s_t++;
+// 					f_q--;
+// 				}
+// 				
+// 				
+// 				
+// 			}
+// 
+// 
+// 		}
+// 
+// 		cout << (win - lose) * 200<<endl;
+// 	}
+// }

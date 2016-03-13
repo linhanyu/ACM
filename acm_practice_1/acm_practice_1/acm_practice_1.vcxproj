@@ -111,6 +111,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="File_1.cpp" />
+    <ClCompile Include="File_2.cpp" />
+    <ClCompile Include="File_3.cpp" />
+    <ClCompile Include="File_4.cpp" />
+    <ClCompile Include="File_5.cpp" />
+    <ClCompile Include="File_6.cpp" />
+    <ClCompile Include="File_7.cpp" />
+    <ClCompile Include="File_8.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

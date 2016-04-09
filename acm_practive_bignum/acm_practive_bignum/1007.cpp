@@ -5,6 +5,7 @@
 #include <vector>
 
 using namespace std;
+
 #define NUM 1001
 #define BASE 100000000
 #define BIT 8
@@ -68,21 +69,21 @@ void print_Big_Num(Big_Int & bi, ostream & os) {
 		os << setw(BIT) << setfill('0') << bi.nums[i];
 	}
 }
-int main() {
-	Big_Int Fibo[NUM];
-	int n;
-	Fibo[1] = 1;
-	Fibo[2] = 2;
-	Fibo[3] = 4;
-	Fibo[4] = 7;
-	for (int i = 5; i < NUM; i++)
-	{
-		Add_Intger(Fibo[i], Fibo[i - 1]);
-		Add_Intger(Fibo[i], Fibo[i - 2]);
-		Add_Intger(Fibo[i], Fibo[i - 4]);
-	}
-	while (cin>>n && n!=EOF) {
-		print_Big_Num(Fibo[n], cout);
-		cout << endl;
-	}
-}
+//int main() {
+//	Big_Int Fibo[NUM];
+//	int n;
+//	Fibo[1] = 1;
+//	Fibo[2] = 2;
+//	Fibo[3] = 4;
+//	Fibo[4] = 7;
+//	for (int i = 5; i < NUM; i++)
+//	{
+//		Add_Intger(Fibo[i], Fibo[i - 1]);
+//		Add_Intger(Fibo[i], Fibo[i - 2]);
+//		Add_Intger(Fibo[i], Fibo[i - 4]);
+//	}
+//	while (cin>>n && n!=EOF) {
+//		print_Big_Num(Fibo[n], cout);
+//		cout << endl;
+//	}
+//}

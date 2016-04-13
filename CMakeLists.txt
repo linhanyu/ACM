@@ -23,6 +23,6 @@ set(SOURCE_FILES
     Project1/Project1/Red_Black_Tree.cpp
     Project1/Project1/Skip_List.cpp
     Project1/Project1/Splay_Tree.cpp
-    Project1/Project1/Treaps.cpp DP/3008.cpp DP/1011.cpp DP/1081.cpp)
+    Project1/Project1/Treaps.cpp DP/3008.cpp DP/1011.cpp DP/1081.cpp DP/1224.cpp DP/1227.cpp Competition/File_1.cpp Modles/Fast_memset.cpp)
 
 add_executable(ACM ${SOURCE_FILES})

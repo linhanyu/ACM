@@ -2,48 +2,48 @@
 // Created by twinklekuang on 16/4/8.
 //
 
-#include <iostream>
-#include <queue>
-#include <algorithm>
-
-#define NUM 110
-
-
-
-using namespace std;
-
-struct NODE{
-    int bugs;
-    int possibility;
-
-
-};
-int dp[NUM][NUM];
-int m,n,tmp_1,tmp_2;
-NODE node[NUM];
-bool Relation_After[NUM][NUM];
-bool vis[NUM];
-
-void dfs(int root){
-    int cost = (node[root].bugs+19)/20;
-    for (int i = cost; i <=m ; ++i) {
-        dp[root][i] = node[root].possibility;
-    }
-    vis[root] = true;
-
-    for (int i = 1; i <= n ; ++i) {
-        if (Relation_After[root][i] && !vis[i]){
-            dfs(i);
-            for (int j=m;j>=cost;j--) {
-                for (int k = 1; k <= j-cost; ++k) {
-                    dp[root][j] = max(dp[root][j],dp[i][k]+dp[root][j-k]);
-                }
-            }
-        }
-
-    }
-
-}
+//#include <iostream>
+//#include <queue>
+//#include <algorithm>
+//
+//#define NUM 110
+//
+//
+//
+//using namespace std;
+//
+//struct NODE{
+//    int bugs;
+//    int possibility;
+//
+//
+//};
+//int dp[NUM][NUM];
+//int m,n,tmp_1,tmp_2;
+//NODE node[NUM];
+//bool Relation_After[NUM][NUM];
+//bool vis[NUM];
+//
+//void dfs(int root){
+//    int cost = (node[root].bugs+19)/20;
+//    for (int i = cost; i <=m ; ++i) {
+//        dp[root][i] = node[root].possibility;
+//    }
+//    vis[root] = true;
+//
+//    for (int i = 1; i <= n ; ++i) {
+//        if (Relation_After[root][i] && !vis[i]){
+//            dfs(i);
+//            for (int j=m;j>=cost;j--) {
+//                for (int k = 1; k <= j-cost; ++k) {
+//                    dp[root][j] = max(dp[root][j],dp[i][k]+dp[root][j-k]);
+//                }
+//            }
+//        }
+//
+//    }
+//
+//}
 
 //int main(){
 //

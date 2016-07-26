@@ -22,16 +22,16 @@ void fast_memset(T * array,int size,T val){
     memcpy(array+i,array ,sizeof(T)*(size-i));
 }
 
-int main(){
-    int sperm[NUM][NUM];
-    clock_t  start = clock();
-    fast_memset(&sperm[0][0],NUM*NUM,20);
-//    for (int i = 0; i < NUM; ++i) {
-//        sperm[0][i];
-//    }
-//
-//    for (int i = 1 ; i < NUM; ++i) {
-//        memcpy(sperm[i],sperm[0], sizeof(sperm[0]));
-//    }
-    cout<<(clock() - start) << endl;
-}
+//int main(){
+//    int sperm[NUM][NUM];
+//    clock_t  start = clock();
+//    fast_memset(&sperm[0][0],NUM*NUM,20);
+////    for (int i = 0; i < NUM; ++i) {
+////        sperm[0][i];
+////    }
+////
+////    for (int i = 1 ; i < NUM; ++i) {
+////        memcpy(sperm[i],sperm[0], sizeof(sperm[0]));
+////    }
+//    cout<<(clock() - start) << endl;
+//}

@@ -1,28 +1,28 @@
 //
 // Created by twinklekuang on 16/4/9.
+////
 //
-
-#include <iostream>
-#include <queue>
-
-#define NUM 100
-
-using namespace std;
-
-struct ord{
-    int x;
-    int y;
-};
-
-int dis[NUM][NUM];
-ord Buffer[NUM];
-
-struct cmp{
-    bool operator() (int & a,int & b){
-        return dis[Buffer[a].x][Buffer[a].y] > dis[Buffer[b].x][Buffer[b].y];
-
-    }
-};
+//#include <iostream>
+//#include <queue>
+//
+//#define NUM 100
+//
+//using namespace std;
+//
+//struct ord{
+//    int x;
+//    int y;
+//};
+//
+//int dis[NUM][NUM];
+//ord Buffer[NUM];
+//
+//struct cmp{
+//    bool operator() (int & a,int & b){
+//        return dis[Buffer[a].x][Buffer[a].y] > dis[Buffer[b].x][Buffer[b].y];
+//
+//    }
+//};
 
 
 

@@ -5,6 +5,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(SOURCE_FILES
 
-  DP/1400.cpp)
+        Segment_Tree/poj2828.cpp)
 
 add_executable(ACM ${SOURCE_FILES})

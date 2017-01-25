@@ -104,13 +104,13 @@
 ////            scanf("%d",&wt[i]);
 ////        }
 ////
-////        for (int i = 1; i <= upbound;++i) {
-////            for (int j = 1; j <= upbound; ++j) {
-////                for (int k = 1; k <= upbound; ++k) {
-////                    dp[j][k] = min(dp[j][i] + dp[i][k],dp[j][k]);
-////                }
-////            }
-////        }
+//        for (int i = 1; i <= upbound;++i) {
+//            for (int j = 1; j <= upbound; ++j) {
+//                for (int k = 1; k <= upbound; ++k) {
+//                    dp[j][k] = min(dp[j][i] + dp[i][k],dp[j][k]);
+//                }
+//            }
+//        }
 ////        Min = INF;
 ////        for (int i = 1; i <= d; ++i) {
 ////            for (int j = 1; j <= s; ++j) {

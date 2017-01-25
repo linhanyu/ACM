@@ -7,12 +7,12 @@
 //#include <cmath>
 //
 //#define prime_size 2000002
-//#define NUM 601
-//#define INF 0x7FFFFFFF
+#define NUM 601
+#define INF 0x7FFFFFFF
 //using namespace std;
 //
 //bool is_prime[prime_size];
-//int rls[NUM][NUM],n;
+int rls[NUM][NUM],n;
 //
 //void init_prime(){
 //    memset(is_prime,1, sizeof(is_prime));
@@ -27,44 +27,44 @@
 //    }
 //}
 //
-//
-//int min_span_tree(int begin){
-//    static int low_cost[NUM];
-//    static bool in_tree[NUM];
-//    int Min,count=0,Min_sub;
-//    bool flag;
-//    for(int i=0;i<n;i++){
-//        low_cost[i] = rls[begin][i];
-//    }
-//
-//    memset(in_tree,0, sizeof(bool)*n);
-//    in_tree[begin] = true;
-//
-//    for (int i = 0; i < n-1; ++i) {
-//        Min = INF;
-//        flag  = true;
-//        for (int j = 0; j < n; ++j) {
-//            if (!in_tree[j] && low_cost[j]<Min) {
-//                Min = low_cost[j];
-//                Min_sub = j;
-//                flag = false;
-//            }
-//        }
-//
-//        if (flag) return -1;
-//        count += Min;
-//        in_tree[Min_sub] = true;
-//
-//        for (int j = 0; j < n; ++j) {
-//            if (!in_tree[j] && Min_sub!=j && rls[Min_sub][j] < low_cost[j]) {
-//                low_cost[j] = rls[Min_sub][j];
-//            }
-//        }
-//
-//    }
-//
-//    return count;
-//}
+
+int min_span_tree(int begin,int n){
+    static int low_cost[NUM];
+    static bool in_tree[NUM];
+    int Min,count=0,Min_sub;
+    bool flag;
+    for(int i=0;i<n;i++){
+        low_cost[i] = rls[begin][i];
+    }
+
+    memset(in_tree,0, sizeof(bool)*n);
+    in_tree[begin] = true;
+
+    for (int i = 0; i < n-1; ++i) {
+        Min = INF;
+        flag  = true;
+        for (int j = 0; j < n; ++j) {
+            if (!in_tree[j] && low_cost[j]<Min) {
+                Min = low_cost[j];
+                Min_sub = j;
+                flag = false;
+            }
+        }
+
+        if (flag) return -1;
+        count += Min;
+        in_tree[Min_sub] = true;
+
+        for (int j = 0; j < n; ++j) {
+            if (!in_tree[j] && Min_sub!=j && rls[Min_sub][j] < low_cost[j]) {
+                low_cost[j] = rls[Min_sub][j];
+            }
+        }
+
+    }
+
+    return count;
+}
 //
 //
 //

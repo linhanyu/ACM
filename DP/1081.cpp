@@ -12,15 +12,15 @@
 //
 //int t_array[NUM];
 //
-//int cal_max_subsequence(int n){
-//    int dp=0,Max=-INF;
-//    for (int i = 0; i < n ; ++i) {
-//        dp = (dp+t_array[i] < 0?0:dp) + t_array[i];
-//        Max = max(Max,dp);
-//    }
-//    return Max;
-//
-//}
+int cal_max_subsequence(int n){
+    int dp=0,Max=-INF;
+    for (int i = 0; i < n ; ++i) {
+        dp = (dp+t_array[i] < 0?0:dp) + t_array[i];
+        Max = max(Max,dp);
+    }
+    return Max;
+
+}
 
 //int main() {
 //    int rectangle[NUM][NUM];

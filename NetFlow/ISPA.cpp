@@ -1,20 +1,66 @@
-//
-// Created by Henry on 16/9/29.
-//
-
-#include <memory>
-#include <cstdio>
+#include <memory.h>
 #include <algorithm>
+#include <cstdio>
 #include <queue>
-#include <vector>
-
 using namespace std;
 
+const int MAXV = 1000 + 10;
+const int MAXE = 1000;
+const int INF = 0x3f3f3f3f;
+
+struct edge{
+    int next,v,cap,cost;
+}G[MAXE];
 
 
+int head[MAXV];
+int dist[MAXV];
+int cur;
 
-int MCISAP(int s,int t,int n){
-    spfa(t);
+void addedge_(int u,int v,int cap,int cost){
+    G[cur].v = v;
+    G[cur].cap = cap;
+    G[cur].next = head[u];
+    G[cur].cost = cost;
+    head[u] = cur++;
+}
+
+void addedge(int u,int v,int cap,int cost){
+    addedge_(u,v,cap,cost);
+    addedge_(v,u,0,-cost);
+}
+
+void revSpfa(int s){
+    int outQ[MAXV];
+
+    memset(outQ,1, sizeof(outQ));
+    memset(dist,0x3f, sizeof(dist));
+
+    queue<int > Q;
+    Q.push(s);
+    dist[s] = 0;
+
+    while (!Q.empty()){
+        s = Q.front();
+        Q.pop();
+        outQ[s] = true;
+
+        for (int i = head[s]; ~i ; i = G[i].next) {
+            if (G[i ^ 1].cap && dist[s] + G[i].cost < dist[G[i].v]){
+                dist[G[i].v] = dist[s] + G[i].cost;
+                if (outQ[G[i].v]){
+                    outQ[G[i].v] = false;
+                    Q.push(G[i].v);
+                }
+            }
+        }
+    }
+
+}
+
+
+int MCISAP(int s,int t){
+    revSpfa(t);
 
     int prev[MAXV],ecur[MAXV];
     int u,flow,cost;
@@ -35,10 +81,10 @@ int MCISAP(int s,int t,int n){
             }
 
             flow += f;
+            cost += dist[s]*f;
             for (int i = t; i != s ; i = prev[i]) {
                 G[ecur[i]].cap += f;
-                G[ecur[i]^1].cost -= f;
-                cost += G[ecur[i]].cost*f;
+                G[ecur[i]^1].cap -= f;
             }
 
             u = neck;
@@ -46,7 +92,7 @@ int MCISAP(int s,int t,int n){
 
         int i;
         for (i = ecur[u]; ~i ; i = G[i].next) {
-            if (G[i].cap &&  dist[u] < dist[G[i].v] + G[i].cost) break;
+            if (G[i].cap &&  dist[u] == dist[G[i].v] + G[i].cost) break;
         }
 
         if (~i){
@@ -55,7 +101,6 @@ int MCISAP(int s,int t,int n){
             prev[G[i].v] = u;
             u = G[i].v;
         } else{
-
             int mind = INF;
             for (int i = head[u]; ~i ; i = G[i].next) {
                 if (G[i].cap && dist[G[i].v] + G[i].cost < mind){

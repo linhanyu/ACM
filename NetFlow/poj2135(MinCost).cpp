@@ -4,91 +4,115 @@
 
 #include <cstdio>
 #include <algorithm>
-#include <vector>
 #include <queue>
 
 using namespace std;
 
-typedef pair<int,int> P;
 
 const int MAXV = 1000 + 10;
 const int MAXE = 50000;
 const int INF = 0x6FFFFFF;
 
 struct edge{
-    int to,cap,cost,next;
-}Buffer[MAXE];
+    int v,cap,cost,next;
+}G[MAXE];
 
 int cur;
 int head[MAXV];
-int pre[MAXV];
-int pree[MAXV];
-int dis[MAXV];
+int dist[MAXV];
 
-int spfa(int begin,int end){
-    static bool outqueue[MAXV];
+void revSpfa(int s){
+    bool outQ[MAXV];
 
-    fill(dis,dis+MAXV,INF);
-    memset(outqueue,1, sizeof(outqueue));
+    memset(outQ,1, sizeof(outQ));
+    memset(dist,0x3f, sizeof(dist));
 
     queue<int > Q;
-    Q.push(begin);
-
-    dis[begin] = 0;
-    pre[begin] = -1;
+    Q.push(s);
+    dist[s] = 0;
 
     while (!Q.empty()){
-        int s =Q.front();
+        s = Q.front();
         Q.pop();
-        outqueue[s] = true;
+        outQ[s] = true;
 
-        for (int i = head[s]; ~i ; i = Buffer[i].next) {
-
-            if (Buffer[i].cap > 0 && dis[Buffer[i].to] > dis[s] + Buffer[i].cost){
-                dis[Buffer[i].to] = dis[s] + Buffer[i].cost;
-                pre[Buffer[i].to] = s;
-                pree[Buffer[i].to] = i;
-
-                if (outqueue[Buffer[i].to]){
-                    Q.push(Buffer[i].to);
-                    outqueue[Buffer[i].to] = false;
+        for (int i = head[s]; ~i ; i = G[i].next) {
+            if (G[i ^ 1].cap && dist[s] + G[i^1].cost < dist[G[i].v]){
+                dist[G[i].v] = dist[s] + G[i].cost;
+                if (outQ[G[i].v]){
+                    outQ[G[i].v] = false;
+                    Q.push(G[i].v);
                 }
-
             }
         }
     }
 
-    return dis[end] == INF ? -1:dis[end];
-
-
 }
 
-int MinCostFlow(int s,int t,int f){
-    int ans = 0;
-    while(~spfa(s,t) && f>0){
-        int d = INF;
-        for (int i = t; i !=s ; i = pre[i]) {
-            d = min(d,Buffer[pree[i]].cap);
+
+int MCISAP(int s,int t,int flow){
+    revSpfa(t);
+
+    int prev[MAXV],ecur[MAXV];
+    int u,cost;
+
+    prev[s] = u = s;
+    cost = 0;
+    memcpy(ecur,head, sizeof(ecur));
+
+    while (flow>0 && dist[u] < INF){
+        if (u == t){
+            //aug
+            int f = INF,neck = s;
+            for (int i = s; i != t ; i = G[ecur[i]].v) {
+                if (f > G[ecur[i]].cap){
+                    f = G[ecur[i]].cap;
+                    neck = i;
+                }
+            }
+
+            flow -= f;
+            cost += dist[s]*f;
+            for (int i = s; i != t  ; i = G[ecur[i]].v) {
+                G[ecur[i]].cap -= f;
+                G[ecur[i]^1].cap += f;
+            }
+
+            u = neck;
         }
 
-        ans += d * dis[t];
-        f -= d;
-
-        for (int i = t; i !=s ; i = pre[i]) {
-            Buffer[pree[i]].cap -= d;
-            Buffer[pree[i] ^ 1].cap += d;
+        int i;
+        for (i = ecur[u]; ~i ; i = G[i].next) {
+            if (G[i].cap &&  dist[u] == dist[G[i].v] + G[i].cost) break;
         }
 
+        if (~i){
+            //reset cur flag
+            ecur[u] = i;
+            prev[G[i].v] = u;
+            u = G[i].v;
+        } else{
+            int mind = INF;
+            for (int i = head[u]; ~i ; i = G[i].next) {
+                if (G[i].cap && dist[G[i].v] + G[i].cost < mind){
+                    mind = dist[G[i].v] + G[i].cost;
+                    ecur[u] = i;
+                }
+            }
+
+            dist[u] = mind;
+            u = prev[u];
+        }
     }
 
-    return ans;
+    return cost;
 }
 
 void add_Edge(int u,int v,int cap,int cost){
-    Buffer[cur].to = v;
-    Buffer[cur].cap = cap;
-    Buffer[cur].cost = cost;
-    Buffer[cur].next = head[u];
+    G[cur].v = v;
+    G[cur].cap = cap;
+    G[cur].cost = cost;
+    G[cur].next = head[u];
     head[u] = cur++;
 }
 
@@ -106,14 +130,14 @@ void init(){
 }
 
 //struct edge{
-//    int to,cap,cost,rev;
+//    int v,cap,cost,rev;
 //    edge(){}
-//    edge(int t,int c,int cost,int rev):to(t),cap(c),cost(cost),rev(rev){}
+//    edge(int t,int c,int cost,int rev):v(t),cap(c),cost(cost),rev(rev){}
 //};
 //
 //
 //int V;
-//vector<edge> G[MAXV];
+//vecvr<edge> G[MAXV];
 //int h[MAXV];
 //int dist[MAXV];
 //int prevv[MAXV],preve[MAXV];
@@ -128,13 +152,13 @@ void init(){
 //    fill(h,h+V,0);
 //
 //    while(f>0){
-//        priority_queue<P,vector<P>,greater<P> > Q;
+//        priority_queue<P,vecvr<P>,greater<P> > Q;
 //        fill(dist,dist+V,INF);
 //        dist[s] = 0;
 //        Q.push(P(0,s));
 //
 //        while(!Q.empty()){
-//            P p = Q.top();
+//            P p = Q.vp();
 //            Q.pop();
 //
 //            int v = p.second;
@@ -143,11 +167,11 @@ void init(){
 //
 //            for (int i = 0; i < G[v].size(); ++i) {
 //                edge & e = G[v][i];
-//                if (e.cap > 0 && dist[e.to] > dist[v] + e.cost + h[v] - h[e.to]){
-//                    dist[e.to] = dist[v] + e.cost + h[v] - h[e.to];
-//                    prevv[e.to] = v;
-//                    preve[e.to] = i;
-//                    Q.push(P(dist[e.to],e.to));
+//                if (e.cap > 0 && dist[e.v] > dist[v] + e.cost + h[v] - h[e.v]){
+//                    dist[e.v] = dist[v] + e.cost + h[v] - h[e.v];
+//                    prevv[e.v] = v;
+//                    preve[e.v] = i;
+//                    Q.push(P(dist[e.v],e.v));
 //                }
 //            }
 //        }
@@ -170,7 +194,7 @@ void init(){
 //        for (int v = t; v != s ; v = prevv[v]) {
 //            edge & e = G[prevv[v]][preve[v]];
 //            e.cap -= d;
-//            G[e.to][e.rev].cap += d;
+//            G[e.v][e.rev].cap += d;
 //        }
 //
 //
@@ -190,6 +214,6 @@ int main(){
             addEdge(u - 1,v - 1,1,c);
             addEdge(v - 1,u - 1,1,c);
         }
-        printf("%d\n",MinCostFlow(0,n-1,2));
+        printf("%d\n",MCISAP(0,n-1,2));
     }
 }

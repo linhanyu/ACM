@@ -4,8 +4,26 @@
 
 #include <cstdio>
 
-int draw(int r,int c,int pos,int color){ return r == 0 ? 1 : pos == c ? (puts(""),draw(r-1,c,0,c&1 ? color : !color)) : (printf("%d",color),draw(r,c,pos+1,!color)); }
+const int m0[] = {3,7,9};
+const int m1[] = {2,4,5,8};
+const int m3 = 6;
+
+bool shit(int v){
+    for (int i = 0; i < 3; ++i) {
+        if (v % m0[i] != 0) return false;
+    }
+
+    for (int i = 0; i < 4; ++i) {
+        if (v % m1[i] != 1) return false;
+    }
+
+    return v % m3 == 3;
+}
+
+int fuck(int pos){
+    return shit(pos) ? pos :fuck(pos+1);
+}
 
 int main(){
-    draw(2,4,0,1);
+    printf("%d\n",fuck(1));
 }

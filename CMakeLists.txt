@@ -5,6 +5,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(SOURCE_FILES
 
-  splay/3436.cpp)
+  "SCC/POJ 1904.cpp")
 
 add_executable(ACM ${SOURCE_FILES})

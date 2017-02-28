@@ -11,7 +11,6 @@ using namespace std;
 #define R(r) ch[r][1]
 #define MID (l+r) >> 1
 #define Key_Value ch[ch[root][1]][0]
-#define GETC(x) (ch[pre[x]][1] == x)
 
 
 const int MAXN = 200000 + 10;
@@ -142,6 +141,22 @@ char op[MAXN][10];
 int qnum[MAXN];
 int p[MAXN];
 
+
+void Treavel(int x)
+{
+    if(x)
+    {
+        Treavel(ch[x][0]);
+        printf("结点：%2d: 左儿子 %2d 右儿子 %2d 父结点 %2d size = %2d  num = %2d s = %2d e = %2d\n",x,ch[x][0],ch[x][1],pre[x],siz[x],num[x],s[x],e[x]);
+        Treavel(ch[x][1]);
+    }
+}
+void debug()
+{
+    printf("root:%d\n",root);
+    Treavel(root);
+}
+
 int main(){
     int n,q,t,tot2;
     scanf("%d",&t);
@@ -156,11 +171,11 @@ int main(){
 
         p[tot2++] = 1;
         p[tot2++] = n;
-        sort(p,p+t);
-        tot2 = unique(p,p+t) - p;
+        sort(p,p+tot2);
+        tot2 = unique(p,p+tot2) - p;
         cnt = 0;
-
-        for (int i = 0; i < t; ++i) {
+        
+        for (int i = 0; i < tot2; ++i) {
             if (i && p[i] - p[i-1] > 1){
                 cnt++;
                 s[cnt] = p[i-1] + 1;
@@ -175,7 +190,10 @@ int main(){
         for (int i = 0; i < q; ++i) {
             if (op[i][0] == 'T') Top(qnum[i],1,cnt);
             else if (op[i][0] == 'Q') printf("%d\n",Query(qnum[i],1,cnt));
-            else printf("%d\n",getRank(root,qnum[i]));
+            else {
+
+                printf("%d\n",getRank(root,qnum[i]));
+            }
         }
     }
 }

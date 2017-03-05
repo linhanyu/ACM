@@ -5,6 +5,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(SOURCE_FILES
 
-  "SCC/POJ 1904.cpp")
+  newStudent/4463.cpp)
 
 add_executable(ACM ${SOURCE_FILES})

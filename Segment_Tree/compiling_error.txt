@@ -1,0 +1,12 @@
+/Users/twinklekuang/ClionProjects/ACM/Line_Tree/1542.cpp:3:16: warning: extra tokens at end of #ifndef directive [-Wextra-tokens]
+#ifndef L_child(a)
+               ^
+               //
+/Users/twinklekuang/ClionProjects/ACM/Line_Tree/1542.cpp:7:16: warning: extra tokens at end of #ifndef directive [-Wextra-tokens]
+#ifndef R_child(a)
+               ^
+               //
+/Users/twinklekuang/ClionProjects/ACM/Line_Tree/1542.cpp:18:11: error: use of undeclared identifier 'fuck'
+          fuck
+          ^
+2 warnings and 1 error generated.
